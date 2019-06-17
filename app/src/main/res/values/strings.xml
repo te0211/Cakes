@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Cakes</string>
     <string name="loading_cakes">Loading cakes</string>
-     <string name="cakes_list">Cakes list</string>
+    <string name="cakes_list">Cakes list</string>
     <string name="cake_title">Cakes title</string>
     <string name="cake_image">Cake image</string>
-
     <string name="cake_desc">Cake description</string>
+    <string name="refresh">refresh</string>
 </resources>
