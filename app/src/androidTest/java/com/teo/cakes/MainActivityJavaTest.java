@@ -1,9 +1,11 @@
 package com.teo.cakes;
 
 
+import android.text.Layout;
 import android.view.View;
 import android.widget.FrameLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.filters.MediumTest;
@@ -32,8 +34,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityJavaTest {
 
-    @Mock
-    private CakeViewModel cakeViewModel;
 
     @Mock
     private CakeAdapter cakeAdapter;
@@ -45,26 +45,13 @@ public class MainActivityJavaTest {
     public void ensureFrameLayoutIsPresent() throws Exception {
 
         MainActivity activity = rule.getActivity();
-        FrameLayout viewById = activity.findViewById(R.id.fragment_container);
-        assertThat(viewById, instanceOf(FrameLayout.class));
 
-        List<Fragment> fragmentList = activity.getSupportFragmentManager().getFragments();
-        assertEquals(fragmentList.size(), 1);
-        Fragment fragment = (Fragment) fragmentList.get(0);
-        assertThat(fragmentList.get(0), instanceOf(CakeListFragment.class));
-        fragment = (CakeListFragment) fragment;
-
-        // fragment testing
-        View view = fragment.getView();
-        View recyclerView = view.findViewById(R.id.cake_list);
+        View recyclerView = activity.findViewById(R.id.main_list);
         assertThat(recyclerView, instanceOf(RecyclerView.class));
-        assertEquals(view.findViewById(R.id.loading_projects).getVisibility(), View.VISIBLE);
+
         recyclerView = (RecyclerView) recyclerView;
 
-        cakeViewModel = ViewModelProviders.of(activity, new CakeViewModel.Factory(activity.getApplication()))
-                .get(CakeViewModel.class);
-
-        assertEquals(view.findViewById(R.id.loading_projects).getVisibility(), View.VISIBLE);
+       // activity.getApplication().onCreate();
         cakeAdapter = (CakeAdapter) ((RecyclerView) recyclerView).getAdapter();
 
         int count = cakeAdapter.getItemCount();
